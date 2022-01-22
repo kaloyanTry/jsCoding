@@ -1,0 +1,11 @@
+body {
+  height: 100vh;
+  background: linear-gradient(to top left, #22b604, #286e18);
+}
+
+h1 {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
