@@ -1,0 +1,126 @@
+/* @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  color: #eee;
+  background-color: blue;
+}
+
+header {
+  position: relative;
+  height: 25vh;
+  border-bottom: 5px solid white;
+}
+
+header h1 {
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 4rem;
+}
+
+header p {
+  font-size: 2rem;
+  color: lightgray;
+  text-align: center;
+  position: relative;
+  top: 4rem;
+}
+
+.number {
+  border: 1px solid lightgray;
+  color: white;
+  font-size: 4rem;
+  text-align: center;
+  left: 50%;
+  width: 10rem;
+  padding: 0.5rem 1.5rem;
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+main {
+  display: flex;
+  height: 65vh;
+  color: white;
+  align-items: relative;
+  justify-content: space-around;
+}
+
+section {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section h1 {
+  margin: 2rem 2rem;
+  font-size: 2rem;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+}
+
+.guess {
+  background-color: darkblue;
+  border: 2px solid #eee;
+  width: 12rem;
+  padding: 0.5rem 1.5rem;
+  font-family: inherit;
+  color: white;
+  font-size: 4rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 2rem;
+}
+.btn {
+  border: 2px solid white;
+  background-color: darkblue;
+  font-size: 2rem;
+  font-family: inherit;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.again {
+  border: 2px solid lightgray;
+  background-color: darkblue;
+  font-size: 1.5rem;
+  font-family: inherit;
+  color: white;
+  padding: 0.5rem 1rem;
+}
+.label-score {
+  font-size: 2rem;
+  font-family: inherit;
+  color: white;
+  margin: 1rem 1rem;
+}
+
+.label-heighscore {
+  font-size: 2rem;
+  font-family: inherit;
+  color: white;
+  margin: 1rem 1rem;
+}
