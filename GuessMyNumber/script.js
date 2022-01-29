@@ -23,6 +23,7 @@ document.querySelector('.check').addEventListener('click', function () {
     displayMessage('😃 Bravo! Correct number');
     displayNumber.textContent = secretNumber;
     document.querySelector('body').style.backgroundColor = 'rgb(0, 127, 0)';
+
     if (score > highScore) {
       highScore = score;
     }
