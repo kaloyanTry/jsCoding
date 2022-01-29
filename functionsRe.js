@@ -1,7 +1,9 @@
 // 1) Function declaratioin
+
 function calcAge(birthyear) {
   return 2022 - birthyear;
 }
+
 const consoleAge = calcAge(1978);
 console.log(consoleAge);
 
