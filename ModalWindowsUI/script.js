@@ -29,3 +29,15 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+//////////////// Simple way of doing call button clicks:
+// btnCloseModal.addEventListener('click', function () {
+//   modal.classList.add('hidden');
+//   overlay.classList.add('hidden');
+// });
+
+// overlay.addEventListener('click', function () {
+//   modal.classList.add('hidden');
+//   overlay.classList.add('hidden');
+// });
+/////////////////////////////////////////////////////////
