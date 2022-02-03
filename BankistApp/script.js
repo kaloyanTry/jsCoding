@@ -77,7 +77,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-
 displayMovements(account1.movements);
 
 /////////////////////////////////////////////////
@@ -93,3 +92,22 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+const euroToUsd = 1.1;
+const movmentsUSD = movements.map(function (mov) {
+  return mov * euroToUsd;
+});
+// the same but arrow function, it is better in this case:
+// const movementsUSDarrow = movements.map(mov => mov * euroToUsd);
+
+console.log(movements);
+console.log(movmentsUSD);
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movementsDescriptions);
