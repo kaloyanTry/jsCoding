@@ -129,6 +129,7 @@ let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
+
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
@@ -138,7 +139,6 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
-
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
@@ -147,38 +147,58 @@ btnLogin.addEventListener('click', function (e) {
 });
 
 btnTransfer.addEventListener('click', function (e) {
-  e.preventDefaultI();
+  e.preventDefault();
   const amount = Number(inputTransferAmount.value);
-  const recieverAcc = accounts.find(acc => acc.owner === inputTransferTo.value);
-
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
   inputTransferAmount.value = inputTransferTo.value = '';
 
   if (
     amount > 0 &&
-    recieverAcc &&
+    receiverAcc &&
     currentAccount.balance >= amount &&
-    recieverAcc?.username !== currentAccount.username
+    receiverAcc?.username !== currentAccount.username
   ) {
     currentAccount.movements.push(-amount);
-    recieverAcc.movements.push(amount);
+    receiverAcc.movements.push(amount);
 
     updateUI(currentAccount);
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some(mov => mov >= mov.amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
 
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
-  
-  if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
-    const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
 
     accounts.splice(index, 1);
     containerApp.opacity = 0;
-
   }
-  inputCloseUsername.value === inputClosePin.value === '';
-}
+  (inputCloseUsername.value === inputClosePin.value) === '';
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
