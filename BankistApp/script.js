@@ -75,8 +75,9 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}</div>
-      </div>`;
+        <div class="movements__value">${mov}€</div>
+      </div>
+    `;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -101,7 +102,9 @@ const calcDisplaySummary = function (acc) {
   const interest = acc.movements
     .filter(mov => mov > 0)
     .map(deposit => (deposit * acc.interestRate) / 100)
-    .filter(int => int >= 1)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
@@ -175,10 +178,7 @@ btnLoan.addEventListener('click', function (e) {
 
   const amount = Number(inputLoanAmount.value);
 
-  if (
-    amount > 0 &&
-    currentAccount.movements.some(mov => mov >= mov.amount * 0.1)
-  ) {
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     currentAccount.movements.push(amount);
 
     updateUI(currentAccount);
@@ -200,6 +200,7 @@ btnClose.addEventListener('click', function (e) {
     accounts.splice(index, 1);
     containerApp.opacity = 0;
   }
+
   (inputCloseUsername.value === inputClosePin.value) === '';
 });
 
@@ -214,67 +215,103 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-const euroToUsd = 1.1;
-const movmentsUSD = movements.map(function (mov) {
-  return mov * euroToUsd;
-});
-// the same but arrow function, it is better in this case:
-// const movementsUSDarrow = movements.map(mov => mov * euroToUsd);
-
-console.log(movements);
-console.log(movmentsUSD);
-
-const movementsDescriptions = movements.map(
-  (mov, i) =>
-    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
-      mov
-    )}`
-);
-
-console.log(movementsDescriptions);
-
-// Filter method -> return array:
-// const deposits = movements.filter(mov => mov > 0);
-// console.log(deposits);
-// const withdraws = movements.filter(mov => mov < 0);
-// console.log(withdraws);
-
-// Reduce method:
-const balance = movements.reduce((acc, cur) => acc + cur, 0);
-console.log(balance);
-
-const max = movements.reduce((acc, cur) => {
-  if (acc > cur) return acc;
-  else return cur;
-}, movements[0]);
-console.log(max);
-
-// Find metod return only one element = true
-// const account = accounts.find(acc => acc.owner === 'Jonas Schmedtmann');
-// console.log(account);
-
-// const owners = ['Johnas', 'Zach', 'Adam', 'Martha'];
-
-// // sort mutate the array
-// console.log(owners.sort());
-// console.log(owners);
-
-// // sorting numbers method:
-// movements.sort((a, b) => {
-//   if (a > b) return 1;
-//   if (b > a) return -1;
+// const euroToUsd = 1.1;
+// const movmentsUSD = movements.map(function (mov) {
+//   return mov * euroToUsd;
 // });
+// // the same but arrow function, it is better in this case:
+// // const movementsUSDarrow = movements.map(mov => mov * euroToUsd);
 
-// // the same, but improved logic:
-// // movements.sort((a, b) => a - b);
 // console.log(movements);
+// console.log(movmentsUSD);
+
+// const movementsDescriptions = movements.map(
+//   (mov, i) =>
+//     `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+//       mov
+//     )}`
+// );
+
+// console.log(movementsDescriptions);
+
+// // Filter method -> return array:
+// // const deposits = movements.filter(mov => mov > 0);
+// // console.log(deposits);
+// // const withdraws = movements.filter(mov => mov < 0);
+// // console.log(withdraws);
+
+// // Reduce method:
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+// console.log(balance);
+
+// const max = movements.reduce((acc, cur) => {
+//   if (acc > cur) return acc;
+//   else return cur;
+// }, movements[0]);
+// console.log(max);
+
+// // Find metod return only one element = true
+// // const account = accounts.find(acc => acc.owner === 'Jonas Schmedtmann');
+// // console.log(account);
+
+// // const owners = ['Johnas', 'Zach', 'Adam', 'Martha'];
+
+// // // sort mutate the array
+// // console.log(owners.sort());
+// // console.log(owners);
+
+// // // sorting numbers method:
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (b > a) return -1;
+// // });
+
+// // // the same, but improved logic:
+// // // movements.sort((a, b) => a - b);
+// // console.log(movements);
+
+// // creating Array.from
+// // const arrZ = Array.from({ length: 10 }, (_, i) => i + 1);
+// // console.log(arrZ);
+
+// // Reduce and flatMap Array methods =>  calculate the sums of deposits and withdrawals:
+// // const { deposits, withdrawals } = accounts
+// //   .flatMap(acc => acc.movements)
+// //   .reduce(
+// //     (sums, cur) => {
+// //       sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+// //       return sums;
+// //     },
+// //     { deposits: 0, withdrawals: 0 }
+// //   );
+// // console.log(deposits, withdrawals);
+
+// const convertTitleCase = function (title) {
+//   const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+//   const exceptions = ['and', 'a', 'an', 'the', 'but', 'or', 'on', 'in'];
+
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(' ')
+//     .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+//     .join(' ');
+
+//   return capitalize(titleCase);
+// };
+// const words = 'This is the new converted title case function.';
+// const words2 = 'this is a NEW 2 converted title CASE function sECOND.';
+// const words3 = 'and this is the THIRD converted title casE function tHITD.';
+// console.log(convertTitleCase(words));
+// console.log(convertTitleCase(words2));
+// console.log(convertTitleCase(words3));
