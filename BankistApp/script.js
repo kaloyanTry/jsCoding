@@ -228,7 +228,6 @@ btnLogin.addEventListener('click', function (e) {
       day: 'numeric',
       month: 'numeric',
       year: 'numeric',
-      // weekday: 'long',
     };
 
     labelDate.textContent = new Intl.DateTimeFormat(
@@ -331,3 +330,7 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
+
+// Lectures:
+// const now = new Date();
+// labelDate.textContent = new Intl.DateTimeFormat('en-US').format(now);
