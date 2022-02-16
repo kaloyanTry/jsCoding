@@ -335,3 +335,17 @@ btnSort.addEventListener('click', function (e) {
 // Lectures:
 // const now = new Date();
 // labelDate.textContent = new Intl.DateTimeFormat('en-US').format(now);
+
+// set Timeout:
+// const pizzaTimer = setTimeout(() => console.log('Here is your pizza 🍕'), 3000);
+// console.log('Waiting...');
+// clearTimeout(pizzaTimer); // clear the timer
+
+// setInterval
+setInterval(function () {
+  const now = new Date();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  const seconds = now.getSeconds();
+  console.log(`It's: ${hour}:${minute}:${seconds}`);
+}, 1000);
