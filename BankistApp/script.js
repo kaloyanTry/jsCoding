@@ -46,7 +46,25 @@ const account2 = {
   locale: 'en-US',
 };
 
-const accounts = [account1, account2];
+const account3 = {
+  owner: 'Kaloyan Ganchev',
+  movements: [100, 1000, 1100, -500, -222, 333, 2500],
+  interestRate: 1.2,
+  pin: 3333,
+  movementsDates: [
+    '2021-11-01T13:16:03.035Z',
+    '2021-12-30T09:48:16.867Z',
+    '2022-01-05T06:04:23.907Z',
+    '2022-01-25T14:18:46.235Z',
+    '2022-02-01T16:33:06.386Z',
+    '2022-02-10T14:43:26.374Z',
+    '2022-02-25T18:49:59.371Z',
+  ],
+  currency: 'BGN',
+  locale: 'bg-BG',
+};
+
+const accounts = [account1, account2, account3];
 
 /////////////////////////////////////////////////
 // Elements
@@ -177,7 +195,6 @@ const startLogOutTimer = function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(time % 60).padStart(2, 0);
 
-    // In each call, print the remaining time to UI
     labelTimer.textContent = `${min}:${sec}`;
 
     // When 0 seconds, stop timer and log out user
@@ -186,12 +203,9 @@ const startLogOutTimer = function () {
       labelWelcome.textContent = 'Log in to get started';
       containerApp.style.opacity = 0;
     }
-
-    // Decrease 1s
     time--;
   };
 
-  // Set time to 5 minutes
   let time = 300;
 
   // Call the timer every second
@@ -212,7 +226,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
 
   if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and message
@@ -332,20 +346,20 @@ btnSort.addEventListener('click', function (e) {
   sorted = !sorted;
 });
 
-// Lectures:
+// Lectures Dates:
 // const now = new Date();
 // labelDate.textContent = new Intl.DateTimeFormat('en-US').format(now);
 
-// set Timeout:
+// set Timeout, count down:
 // const pizzaTimer = setTimeout(() => console.log('Here is your pizza 🍕'), 3000);
 // console.log('Waiting...');
 // clearTimeout(pizzaTimer); // clear the timer
 
-// setInterval
-setInterval(function () {
-  const now = new Date();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-  const seconds = now.getSeconds();
-  console.log(`It's: ${hour}:${minute}:${seconds}`);
-}, 1000);
+// setInterval, clock:
+// setInterval(function () {
+//   const now = new Date();
+//   const hour = now.getHours();
+//   const minute = now.getMinutes();
+//   const seconds = now.getSeconds();
+//   console.log(`It's: ${hour}:${minute}:${seconds}`);
+// }, 1000);
