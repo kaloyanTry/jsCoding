@@ -69,20 +69,27 @@ message.style.width = '120%';
 //   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
 
 // Attributes:
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.src);
-console.log(logo.getAttribute('src')); //Same, but relative path
-console.log(logo.className);
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.src);
+// console.log(logo.getAttribute('src')); //Same, but relative path
+// console.log(logo.className);
 
-// Set/add new attribute: company with value: Bankist:
-logo.setAttribute('company', 'Bankist');
+// // Set/add new attribute: company with value: Bankist:
+// logo.setAttribute('company', 'Bankist');
 
-// Data attributes example:
-console.log(logo.dataset.versionNumber);
+// // Data attributes example:
+// console.log(logo.dataset.versionNumber);
 
-// Classes:
-logo.classList.add('c');
-logo.classList.remove('c');
-logo.classList.toggle('c');
-logo.classList.contains('c');
+// // Classes:
+// logo.classList.add('c');
+// logo.classList.remove('c');
+// logo.classList.toggle('c');
+// logo.classList.contains('c');
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
