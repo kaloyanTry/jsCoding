@@ -168,3 +168,8 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+const h1 = document.querySelector('h1');
+// console.log(h1.querySelectorAll('.highlight'));
+// h1.firstElementChild.style.color = 'white';
+// h1.closest('.header').style.background = 'var(--gradient-primary)';
