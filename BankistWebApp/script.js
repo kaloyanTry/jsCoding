@@ -170,22 +170,6 @@ tabsContainer.addEventListener('click', function (e) {
 // console.log(h1.closest('.header'));
 // console.log(h1.closest('h1'));
 
-// Tabbed components:
-tabsContainer.addEventListener('click', function (e) {
-  const clicked = e.target.closest('.operations__tab');
-
-  if (!clicked) return; // Guard clause
-
-  tabs.forEach(t => t.classList.remove('operations__tab--active'));
-  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
-
-  clicked.classList.add('operations__tab--active');
-
-  document
-    .querySelector(`.operations__content--${clicked.dataset.tab}`)
-    .classList.add('operations__content--active');
-});
-
 // const h1 = document.querySelector('h1');
 // console.log(h1.querySelectorAll('.highlight'));
 // h1.firstElementChild.style.color = 'white';
