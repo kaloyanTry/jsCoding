@@ -135,10 +135,27 @@ message.style.width = '120%';
 // Delegation technique:
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   e.preventDefault();
+  // Matching strategy:
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+// Tabbed component:
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause:
+  if (!clicked) return;
+
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  clicked.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
 // Traversing DOM:
@@ -169,7 +186,7 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 // console.log(h1.querySelectorAll('.highlight'));
 // h1.firstElementChild.style.color = 'white';
 // h1.closest('.header').style.background = 'var(--gradient-primary)';
