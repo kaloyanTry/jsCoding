@@ -11,10 +11,11 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 
-///////////////////////////////////////
-// Modal window
-const openModal = function (e) {
-  e.PreventDefault();
+///////////////////////////////////////////////////////////////////////////
+// Web Application ///////////////////////////////////////////////////////
+
+// Modal window: Open account modal window///////////
+const openModal = function () {
   modal.classList.remove('hidden');
   overlay.classList.remove('hidden');
 };
@@ -28,26 +29,26 @@ btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
-
 document.addEventListener('keydown', function (e) {
+  e.preventDefault();
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
   }
 });
 
-// Button scrolling:
+// Button scrolling////////////////////////////////
 btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-// Menu fade animation:
+// Menu fade animation/////////////////////////////
 const handleHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
-    const sublings = link.closest('.nav').querySelectorAll('.nav__link');
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
     const logo = link.closest('.nav').querySelector('img');
 
-    sublings.forEach(el => {
+    siblings.forEach(el => {
       if (el !== link) el.style.opacity = this;
     });
     logo.style.opacity = this;
@@ -217,24 +218,23 @@ slider();
 
 ////////////////////////////////////////////////////////////////////////
 // Creating and inserting elements:
-const message = document.createElement('div');
-message.classList.add('cookie-message');
-message.innerHTML =
-  'We are using cookies. <button class="btn btn--close-cookie">Got it!</button>';
+// const message = document.createElement('div');
+// message.classList.add('cookie-message');
+// message.innerHTML =
+//   'We are using cookies. <button class="btn btn--close-cookie">Got it!</button>';
+// header.append(message);
 
-header.append(message);
+// ////////////////////////////////////////////////////////////////////////
+// // Deleting elements:
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
 
-////////////////////////////////////////////////////////////////////////
-// Deleting elements:
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
-
-// Adding Styles:
-message.style.backgroundColor = '#37383d';
-message.style.width = '120%';
+// // Adding Styles:
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '120%';
 
 // message.style.height =
 //   Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
