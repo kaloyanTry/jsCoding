@@ -41,6 +41,32 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+// Page navigation////////////////////////////////
+// Delegation technique:
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// Tabbed components//////////////////////////////
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  if (!clicked) return;
+
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  clicked.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
 // Menu fade animation/////////////////////////////
 const handleHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
@@ -57,9 +83,16 @@ const handleHover = function (e) {
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-// Sticky navigation:
+// Sticky navigation: IntersectionObserver API///////////
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav2 = function (entries) {
+  const [entry] = entries;
+
+  if (!entries.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.add('sticky');
+};
 
 const stickyNav = function (entries) {
   const [entry] = entries;
@@ -258,31 +291,21 @@ slider();
 // logo.classList.toggle('c');
 // logo.classList.contains('c');
 
-// Delegation technique:
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  e.preventDefault();
-  // Matching strategy:
-  if (e.target.classList.contains('nav__link')) {
-    const id = e.target.getAttribute('href');
-    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-  }
-});
+// // Tabbed component:
+// tabsContainer.addEventListener('click', function (e) {
+//   const clicked = e.target.closest('.operations__tab');
 
-// Tabbed component:
-tabsContainer.addEventListener('click', function (e) {
-  const clicked = e.target.closest('.operations__tab');
+//   // Guard clause:
+//   if (!clicked) return;
 
-  // Guard clause:
-  if (!clicked) return;
+//   tabs.forEach(t => t.classList.remove('operations__tab--active'));
+//   tabsContent.forEach(c => c.classList.remove('operations__content--active'));
 
-  tabs.forEach(t => t.classList.remove('operations__tab--active'));
-  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
-
-  clicked.classList.add('operations__tab--active');
-  document
-    .querySelector(`.operations__content--${clicked.dataset.tab}`)
-    .classList.add('operations__content--active');
-});
+//   clicked.classList.add('operations__tab--active');
+//   document
+//     .querySelector(`.operations__content--${clicked.dataset.tab}`)
+//     .classList.add('operations__content--active');
+// });
 
 // Traversing DOM:
 // const h1 = document.querySelector('h1');
