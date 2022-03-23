@@ -41,7 +41,6 @@ kiko.calcAge();
 // audi.accelerate();
 // audi.accelerate();
 // audi.break();
-//////////////////
 
 // 2. Class OOP /ES6
 console.log('2. Class /ES6/ mehtod:');
