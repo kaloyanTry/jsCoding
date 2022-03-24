@@ -17,6 +17,28 @@ Person.prototype.calcAge = function () {
 
 kiko.calcAge();
 
+// Class Inheritance => linking prototypes:
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Creating connection between Student and Person classses, before adding methods
+// Linking prototypes:
+Student.prototype = Object.create(Person.prototype);
+// Creating Student method:
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+console.log(mike.__proto__);
+console.log(mike.introduce());
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.dir(Student.prototype.constructor);
+
 // // 1.Chalenge OOP
 // const Car = function (make, speed) {
 //   this.make = make;
@@ -41,6 +63,7 @@ kiko.calcAge();
 // audi.accelerate();
 // audi.accelerate();
 // audi.break();
+//////////////////
 
 // 2. Class OOP /ES6
 console.log('2. Class /ES6/ mehtod:');
