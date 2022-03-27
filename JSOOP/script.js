@@ -160,37 +160,67 @@ martha.calcAge();
 console.log(martha);
 
 // // 2. Chalenge OOP
-// class CarCl {
-//   constructor(make, speed) {
-//     this.make = make;
-//     this.speed = speed;
-//   }
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
 
-//   accelerate() {
-//     this.speed += 10;
-//     console.log(`The current speed is up ${this.speed} of car ${this.make}`);
-//   }
+  accelerate() {
+    this.speed += 10;
+    console.log(`The current speed is up ${this.speed} of car ${this.make}`);
+  }
 
-//   break() {
-//     this.speed -= 5;
-//     console.log(`The current speed is down ${this.speed} of car ${this.make}`);
-//   }
+  break() {
+    this.speed -= 5;
+    console.log(`The current speed is down ${this.speed} of car ${this.make}`);
+    return this;
+  }
 
-//   get speedUS() {
-//     return this.speed / 1.6;
-//   }
+  get speedUS() {
+    return this.speed / 1.6;
+  }
 
-//   set speedUS(speed) {
-//     this.speed = speed * 1.6;
-//   }
-// }
-// const mercedes = new CarCl('Mercedes', 240);
-// console.log(mercedes.speed);
-// console.log(mercedes.speedUS);
-// mercedes.accelerate();
-// mercedes.break();
-// mercedes.speedUS = 50;
-// console.log(mercedes);
+  set speedUS(speed) {
+    this.speed = speed * 1.6;
+  }
+}
+const mercedes = new CarCl('Mercedes', 240);
+console.log(mercedes.speed);
+console.log(mercedes.speedUS);
+mercedes.accelerate();
+mercedes.break();
+mercedes.speedUS = 50;
+console.log(mercedes);
+
+// 3. Chalange OOP
+class EVCL extends CarCl {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} going at ${this.speed} km/h, with a charge og ${
+        this.#charge
+      }%.`
+    );
+    return this;
+  }
+}
+const rivan = new EVCL('Rivan', 120, 23);
+// All the nethods that set something => return this;
+rivan.accelerate().accelerate().break().chargeBattery(75).accelerate();
+console.log(rivan);
 
 // 3. Object.create() :
 console.log('3. Object.create method:');
