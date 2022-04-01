@@ -136,7 +136,6 @@ class App {
     const positiveInputs = (...inputs) => inputs.every(inp => inp > 0);
 
     e.preventDefault();
-
     // Get data from form:
     const type = inputType.value;
     const distance = +inputDistance.value;
@@ -291,5 +290,4 @@ class App {
     location.reload();
   }
 }
-
 const app = new App();
