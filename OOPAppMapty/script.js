@@ -1,5 +1,6 @@
 'use strict';
 
+// Parent class Workout
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
@@ -21,6 +22,7 @@ class Workout {
   }
 }
 
+// Child clsass Running
 class Running extends Workout {
   type = 'running';
 
@@ -37,6 +39,7 @@ class Running extends Workout {
   }
 }
 
+// Child class Cycling
 class Cycling extends Workout {
   type = 'cycling';
 
