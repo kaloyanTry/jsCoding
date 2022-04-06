@@ -63,7 +63,6 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
-//const btnReset = document.querySelector('.btnReset');
 
 class App {
   // Private fields:
@@ -78,13 +77,10 @@ class App {
     // Get data form local storage:
     this._getLocalStorage();
 
-    //this._resetWorkouts();
-
     // Attach event handlers:
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
-    //btnReset.addEventListener('click', this._resetWorkouts.bind(this));
   }
 
   _getPosition() {
@@ -282,14 +278,6 @@ class App {
     this.#workouts = data;
     this.#workouts.forEach(work => this._renderWorkout(work));
   }
-
-  // _resetWorkouts() {
-  //   btnReset.addEventListener('click', function (e) {
-  //     e.preventDefault(0);
-  //     localStorage.removeItem('workouts');
-  //     location.reload();
-  //   });
-  // }
 
   reset() {
     localStorage.removeItem('workouts'); // Add visual button for reset data
