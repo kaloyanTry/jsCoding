@@ -149,7 +149,7 @@ const renderError = function (msg) {
 //     .then(data => renderCountry(data[0]))
 //     .catch(err => console.error(`${err.message} 💥`));
 // };
-// whereAmI(52.508, 13.381, 'AIzaSyCXjVrz361g02b8IUOFvZCd2fjkdiz-kVY');
+// whereAmI(52.508, 13.381, 'api-key');
 // // whereAmI(19.037, 72.873);
 // // whereAmI(-33.933, 18.474);
 ////////////////////////////////////////////////////////////////////
