@@ -152,7 +152,8 @@ const renderError = function (msg) {
 //whereAmI(-33.933, 18.474);
 ////////////////////////////////////////////////////////////////////
 
-// Creating Promise Geolocation API:
+// Create Promise Geolocation position API:
+
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -160,7 +161,7 @@ const getPosition = function () {
 };
 getPosition().then(pos => console.log(pos));
 
-// Creating async function whereAmI:
+// Creating async function for whereAmI App:
 const whereAmI = function () {
   getPosition()
     .then(pos => {
@@ -185,5 +186,4 @@ const whereAmI = function () {
     .then(data => renderCountry(data[0]))
     .catch(err => console.error(`${err.message} 💣`));
 };
-
 btn.addEventListener('click', whereAmI);
