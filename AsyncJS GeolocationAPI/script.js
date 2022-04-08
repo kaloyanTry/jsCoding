@@ -152,7 +152,7 @@ const renderError = function (msg) {
 //whereAmI(-33.933, 18.474);
 ////////////////////////////////////////////////////////////////////
 
-// Create Promise Geolocation position API:
+// Creating Promise Geolocation API:
 const getPosition = function () {
   return new Promise(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -160,7 +160,7 @@ const getPosition = function () {
 };
 getPosition().then(pos => console.log(pos));
 
-// Creating async function for whereAmI App:
+// Creating async function whereAmI:
 const whereAmI = function () {
   getPosition()
     .then(pos => {
