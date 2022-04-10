@@ -269,80 +269,81 @@ const renderError = function (msg) {
 
 // get3Countries('bulgaria', 'ukraine', 'chile');
 
-// Coding chalenge 3, loading images:
-const wait = function (seconds) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
-  });
-};
+//////////////////////////////////////////////////////////
+// Coding chalenges, loading images app:
+// const wait = function (seconds) {
+//   return new Promise(function (resolve) {
+//     setTimeout(resolve, seconds * 1000);
+//   });
+// };
 
-const imgContainer = document.querySelector('.images');
+// const imgContainer = document.querySelector('.images');
+// const createImage = function (imgPath) {
+//   return new Promise(function (resolve, reject) {
+//     const img = document.createElement('img');
+//     img.src = imgPath;
 
-const createImage = function (imgPath) {
-  return new Promise(function (resolve, reject) {
-    const img = document.createElement('img');
-    img.src = imgPath;
+//     img.addEventListener('load', function () {
+//       imgContainer.append(img);
+//       resolve(img);
+//     });
 
-    img.addEventListener('load', function () {
-      imgContainer.append(img);
-      resolve(img);
-    });
+//     img.addEventListener('error', function () {
+//       reject(new Error('Image not found'));
+//     });
+//   });
+// };
 
-    img.addEventListener('error', function () {
-      reject(new Error('Image not found'));
-    });
-  });
-};
+// let currentImg;
 
-let currentImg;
+// first part with fetch and then.
+// createImage('img/img-1.jpg')
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 1 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//     return createImage('img/img-2.jpg');
+//   })
+//   .then(img => {
+//     currentImg = img;
+//     console.log('Image 2 loaded');
+//     return wait(2);
+//   })
+//   .then(() => {
+//     currentImg.style.display = 'none';
+//   })
+//   .catch(err => console.error(err));
 
-createImage('img/img-1.jpg')
-  .then(img => {
-    currentImg = img;
-    console.log('Image 1 loaded');
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-    return createImage('img/img-2.jpg');
-  })
-  .then(img => {
-    currentImg = img;
-    console.log('Image 2 loaded');
-    return wait(2);
-  })
-  .then(() => {
-    currentImg.style.display = 'none';
-  })
-  .catch(err => console.error(err));
+//// PART 1
+// const loadNPause = async function () {
+//   try {
+//     // Load image 1
+//     let img = await createImage('img/img-1.jpg');
+//     console.log('Image 1 loaded');
+//     await wait(2);
+//     img.style.display = 'none';
 
-// PART 1
-const loadNPause = async function () {
-  try {
-    // Load image 1
-    let img = await createImage('img/img-1.jpg');
-    console.log('Image 1 loaded');
-    await wait(2);
-    img.style.display = 'none';
+//     // Load image 2
+//     img = await createImage('img/img-2.jpg');
+//     console.log('Image 2 loaded');
+//     await wait(2);
+//     img.style.display = 'none';
 
-    // Load image 2
-    img = await createImage('img/img-2.jpg');
-    console.log('Image 2 loaded');
-    await wait(2);
-    img.style.display = 'none';
-
-    // Load image 3
-    img = await createImage('img/img-3.jpg');
-    console.log('Image 3 loaded');
-    await wait(2);
-    img.style.display = 'none';
-  } catch (err) {
-    console.error(err);
-  }
-};
+//     // Load image 3
+//     img = await createImage('img/img-3.jpg');
+//     console.log('Image 3 loaded');
+//     await wait(2);
+//     img.style.display = 'none';
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 // loadNPause();
 
-// PART 2
+// // PART 2
 // const loadAll = async function (imgArr) {
 //   try {
 //     const imgs = imgArr.map(async img => await createImage(img));
@@ -354,3 +355,29 @@ const loadNPause = async function () {
 //   }
 // };
 // loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);
+
+////////////////////////////////////////////////////
+// Async... await WhereAmI App:
+const inputText = document.getElementById('inputName');
+const btnSubmit = document.getElementById('btnSubmit');
+let inputName;
+
+const getCountry = function () {
+  btnSubmit.addEventListener('click', function (e) {
+    e.preventDefault();
+    inputName = inputText.value;
+
+    const whereAmI = async function (country) {
+      const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+      const data = await res.json();
+      console.log(data);
+      renderCountry(data[0]);
+    };
+
+    whereAmI(`${inputName}`);
+
+    inputText.value = '';
+  });
+};
+
+getCountry();
