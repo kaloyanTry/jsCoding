@@ -373,7 +373,6 @@ const getCountry = function () {
       console.log(data);
       renderCountry(data[0]);
     };
-
     whereAmI(`${inputName}`);
 
     inputText.value = '';
