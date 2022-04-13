@@ -1,4 +1,6 @@
-const budget = [
+'strict mode';
+
+const budget = Object.freeze([
   { value: 250, description: 'Sold old TV 📺', user: 'jonas' },
   { value: -45, description: 'Groceries 🥑', user: 'jonas' },
   { value: 3500, description: 'Monthly salary 👩‍💻', user: 'jonas' },
@@ -7,47 +9,61 @@ const budget = [
   { value: -20, description: 'Candy 🍭', user: 'matilda' },
   { value: -125, description: 'Toys 🚂', user: 'matilda' },
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
-];
+]);
 
-const spendingLimits = {
+// makes object immutable: Object.freeze:
+const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
-};
+});
 
 // const limit = spendingLimits[user] ? spendingLimits[user] : 0;
 // optional chainings since 2020 and very popular practice now:
 // const limit = spendingLimits?.[user] ?? 0; //here make function DRY
-const getLimit = user => spendingLimits?.[user] ?? 0;
+const getLimit = (limits, user) => spendingLimits?.[user] ?? 0;
 
-const addExpenses = function (value, description, user = 'jonas') {
-  user = user.toLowerCase();
-
-  if (value <= getLimit(user)) {
-    budget.push({ value: -value, description, user });
-  }
-};
-addExpenses(10, 'Pizza 🍕');
-addExpenses(100, 'Going to movies 🍿', 'Matilda');
-addExpenses(200, 'Stuff', 'Jay');
-console.log(budget);
-
-const checkExpenses = function () {
-  for (let entry of budget)
-    if (entry.value < -getLimit(getLimit(entry.user))) entry.flag = 'limit';
-};
-checkExpenses();
-
-console.log(budget);
-
-const logBigExpenses = function (bigLimit) {
-  let output = '';
-  for (var entry of budget)
-    output +=
-      entry.value <= -bigLimit ? `${entry.description.slice(-2)} + / ` : '';
-
-  output = output.slice(0, -2); // Remove last '/ '
-  console.log(output);
+// Pure function: contamproary fashion way of doing things in JS:
+const addExpenses = function (
+  state,
+  limits,
+  value,
+  description,
+  user = 'jonas'
+) {
+  const cleanUser = user.toLowerCase();
+  // budget.push({ value: -value, description, user: cleanUser });
+  // the new way of doing the same:
+  return value <= getLimit(limits, cleanUser)
+    ? [...state, { value: -value, description, user: cleanUser }]
+    : state;
 };
 
-console.log(budget);
-logBigExpenses(1000);
+const budget1 = addExpenses(budget, spendingLimits, 10, 'Pizza 🍕');
+const budget2 = addExpenses(
+  budget1,
+  spendingLimits,
+  100,
+  'Going to movies 🍿',
+  'Matilda'
+);
+const budget3 = addExpenses(budget2, spendingLimits, 200, 'Stuff', 'Jay');
+
+const checkExpenses = function (state, limits) {
+  return state.map(entry => {
+    return entry.value < -getLimit(limits, entry.user)
+      ? { ...entry.value, flag: 'limit' }
+      : entry;
+  });
+};
+const finalBudget = checkExpenses(budget3, spendingLimits);
+console.log(finalBudget);
+
+const logBigExpenses = function (state, bigLimit) {
+  const bigExpenses = state
+    .filter(entry => entry.value <= -bigLimit)
+    .map(entry => entry.description.slice(-2))
+    .join(' / ');
+  console.log(bigExpenses);
+};
+
+logBigExpenses(finalBudget, 500);
