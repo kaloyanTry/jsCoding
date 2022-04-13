@@ -9,50 +9,45 @@ const budget = [
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
 ];
 
-const limits = {
+const spendingLimits = {
   jonas: 1500,
   matilda: 100,
 };
 
-const add = function (value, description, user = 'jonas') {
-  user = user.toLowerCase();
-  let limitsExpenses;
-  limitsExpenses >= limits[user] ? (limitsExpenses = limits[user]) : 0;
+// const limit = spendingLimits[user] ? spendingLimits[user] : 0;
+// optional chainings since 2020 and very popular practice now:
+// const limit = spendingLimits?.[user] ?? 0; //here make function DRY
+const getLimit = user => spendingLimits?.[user] ?? 0;
 
-  if (value <= lim) {
+const addExpenses = function (value, description, user = 'jonas') {
+  user = user.toLowerCase();
+
+  if (value <= getLimit(user)) {
     budget.push({ value: -value, description, user });
   }
 };
-add(10, 'Pizza 🍕');
-add(100, 'Going to movies 🍿', 'Matilda');
-add(200, 'Stuff', 'Jay');
+addExpenses(10, 'Pizza 🍕');
+addExpenses(100, 'Going to movies 🍿', 'Matilda');
+addExpenses(200, 'Stuff', 'Jay');
 console.log(budget);
 
-const check = function () {
-  for (let el of budget) {
-    let lim;
-    if (limits[el.user]) {
-      lim = limits[el.user];
-    } else {
-      lim = 0;
-    }
-
-    if (el.value < -lim) {
-      el.flag = 'limit';
-    }
-  }
+const checkExpenses = function () {
+  for (let entry of budget)
+    if (entry.value < -getLimit(getLimit(entry.user))) entry.flag = 'limit';
 };
-check();
+checkExpenses();
 
 console.log(budget);
 
-const bigExpenses = function (limit) {
+const logBigExpenses = function (bigLimit) {
   let output = '';
-  for (var el of budget) {
-    if (el.value <= -limit) {
-      output += el.description.slice(-2) + ' / '; // Emojis are 2 chars
-    }
-  }
+  for (var entry of budget)
+    output +=
+      entry.value <= -bigLimit ? `${entry.description.slice(-2)} + / ` : '';
+
   output = output.slice(0, -2); // Remove last '/ '
   console.log(output);
 };
+
+console.log(budget);
+logBigExpenses(1000);
