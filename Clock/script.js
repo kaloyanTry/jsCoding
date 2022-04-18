@@ -17,5 +17,4 @@ const clock = () => {
 
   setTimeout(clock, 1000);
 };
-
 clock();
