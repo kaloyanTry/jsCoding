@@ -271,17 +271,17 @@ const num1000Deposits = accounts
 // === .reduce((count, curr) => (curr >= 1000 ? count + 1 : count), 0);
 console.log(num1000Deposits);
 
-// 3. Create an object with all deposits and withdrows:
-const sums = accounts
-  .flatMap(acc => acc.movements)
-  .reduce(
-    (sums, curr) => {
-      curr > 0 ? (sums.deposits += curr) : (sums.withdrows += curr);
-      return sums;
-    },
-    { deposits: 0, withdrows: 0 }
-  );
-console.log(sums);
+// 3. Create an object with all deposits and withdrows using .reduce(method):
+// const sums = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (sums, curr) => {
+//       curr > 0 ? (sums.deposits += curr) : (sums.withdrows += curr);
+//       return sums;
+//     },
+//     { deposits: 0, withdrows: 0 }
+//   );
+// console.log(sums);
 
 // the same, but clever with destruction:
 const { deposits, withdrows } = accounts
@@ -293,5 +293,4 @@ const { deposits, withdrows } = accounts
     },
     { deposits: 0, withdrows: 0 }
   );
-
 console.log(deposits, withdrows);
