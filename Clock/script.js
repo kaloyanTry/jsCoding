@@ -14,7 +14,6 @@ const clock = () => {
   let time = `${hours}:${minutes}:${seconds}`;
 
   document.querySelector('main').textContent = time;
-
   setTimeout(clock, 1000);
 };
 clock();
