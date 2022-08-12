@@ -1,0 +1,46 @@
+h1,
+h2 {
+  color: #6a5acd;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-size: 2rem;
+  text-align: center;
+}
+
+main {
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  text-align: center;
+}
+
+.winner {
+  color: #483d8b;
+}
+
+.looser {
+  color: #b0e0e6;
+}
+
+#btnReset,
+#selectScore {
+  background-color: #e6e6fa;
+  border-radius: 3px;
+  border: 2px solid #6a5acd;
+}
+
+#btnReset:hover {
+  background-color: #87ceeb;
+}
+
+#btnPl1 {
+  color: #00008b;
+  background-color: #fbfcfc;
+  border-radius: 3px;
+  border: 2px solid #6a5acd;
+}
+
+#btnPl2 {
+  color: #fbfcfc;
+  background-color: #6a5acd;
+  border-radius: 3px;
+  border: 2px solid #6a5acd;
+}
